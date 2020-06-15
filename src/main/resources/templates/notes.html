@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h1>Add your Note:</h1>
+	<form action="#" th:action="@{/list}" th:object="${note}" method="post">
+		<p>Importance:
+			<select name="Importance" th:field="*{Importance}">
+	    		<option th:each="importanceOpt : ${importance}" 
+	    		th:value="${importanceOpt}" th:text="${importanceOpt}" ></option>
+			</select>
+		</p>
+   		<p>Your Note:&nbsp; <input type="text" th:field="*{Text}" /></p>
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    </form>
+
+    <h1>The list of your notes</h1>
+    <table>
+    <thead>
+        <tr>
+            <th> Importance </th>
+            <th> Timestamp </th>
+            <th> Note </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${notes.empty}">
+            <td colspan="3"> No Notes Available </td>
+        </tr>
+        <tr th:each="note : ${notes}">
+            <td><span th:text="${note.Importance}"> Importance </span></td>
+            <td><span th:text="${note.timestamp}"> Timestamp </span></td>
+            <td><span th:text="${note.Text}"> Note </span></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
